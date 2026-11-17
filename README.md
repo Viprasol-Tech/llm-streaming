@@ -57,6 +57,7 @@ from llm_streaming import collect, stream_completion
 
 # Built-in offline fake (no network):
 from llm_streaming import FakeLLM
+
 provider = FakeLLM(responses={"Hello?": "Hi there, streamed token by token."})
 
 # ...or wrap a real model. Any Callable[[str], str] is a valid provider:
@@ -68,11 +69,11 @@ provider = FakeLLM(responses={"Hello?": "Hi there, streamed token by token."})
 #         messages=[{"role": "user", "content": prompt}],
 #     ).choices[0].message.content or ""
 
-frames = list(stream_completion("Hello?", provider))   # SSE frames + [DONE]
+frames = list(stream_completion("Hello?", provider))  # SSE frames + [DONE]
 for frame in frames:
-    print(frame, end="")                                 # send these over the wire
+    print(frame, end="")  # send these over the wire
 
-print(collect(frames))   # reassemble the exact completion text
+print(collect(frames))  # reassemble the exact completion text
 ```
 
 ## Architecture
